@@ -1,0 +1,9 @@
+
+swiper-container::part(button-next),
+swiper-container::part(button-prev) {
+  color: #f20530;
+}
+
+swiper-container::part(bullet-active){
+  background-color: #f20530;
+}
