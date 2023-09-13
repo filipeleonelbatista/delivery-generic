@@ -1,4 +1,9 @@
-import { Alert, AlertIcon, CheckCircleIcon, VStack } from "@gluestack-ui/themed";
+import {
+  Alert,
+  AlertIcon,
+  CheckCircleIcon,
+  VStack,
+} from "@gluestack-ui/themed";
 import { createContext, useState } from "react";
 
 export const ToastContext = createContext({});
@@ -14,7 +19,7 @@ export function ToastContextProvider(props) {
     setTitle(title);
     setMessage(message);
     setSeverity(severity);
-    setOpen(true);
+    setOpen(false);
     const valor =
       (message.split(/\s+/).filter((word) => word !== "").length / 50) * 60000;
     setAutoHide(valor);
@@ -32,13 +37,15 @@ export function ToastContextProvider(props) {
         addToast,
       }}
     >
-      <Alert mx="$2.5" action={severity ?? "info"} variant="solid">
-        <AlertIcon as={CheckCircleIcon} size="xl" mr="$3" />
-        <VStack space="xs">
-          {title && <AlertText fontWeight="$bold">{title}</AlertText>}
-          {message && <AlertText>{message}</AlertText>}
-        </VStack>
-      </Alert>
+      {open && (
+        <Alert mx="$2.5" action={severity ?? "info"} variant="solid">
+          <AlertIcon as={CheckCircleIcon} size="xl" mr="$3" />
+          <VStack space="xs">
+            {title && <AlertText fontWeight="$bold">{title}</AlertText>}
+            {message && <AlertText>{message}</AlertText>}
+          </VStack>
+        </Alert>
+      )}
       {props.children}
     </ToastContext.Provider>
   );

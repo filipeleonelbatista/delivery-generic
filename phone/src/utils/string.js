@@ -1,4 +1,5 @@
 export function cutStringToMaxValue(text, maxLength = 50) {
+  if (!text) return;
   if (text.length <= maxLength) {
     return text;
   } else {

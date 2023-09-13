@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { Box, GluestackUIProvider } from "@gluestack-ui/themed";
 import { StatusBar } from "expo-status-bar";
 import { LogBox, StatusBar as RNStatusBar } from "react-native";
@@ -13,10 +14,6 @@ import { ProductsContextProvider } from "./src/contexts/ProductContext";
 import { ShoppingCartContextProvider } from "./src/contexts/ShoppingCartContext";
 import { ToastContextProvider } from "./src/contexts/ToastContext";
 import Routes from "./src/routes";
-
-LogBox.ignoreLogs([
-  "In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.",
-]);
 
 export default function App() {
   return (

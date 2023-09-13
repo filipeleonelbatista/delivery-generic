@@ -1,8 +1,6 @@
-import { Feather } from "@expo/vector-icons";
 import { useTheme } from "@gluestack-style/react";
 import {
   Button,
-  ButtonIcon,
   ButtonText,
   FlatList,
   Image,
@@ -45,7 +43,7 @@ export default function Onboarding() {
     try {
       await AsyncStorage.setItem("@onboarding", "true");
       setIsOnboardingPassed("passed");
-      navigation.navigate("Login");
+      navigation.navigate("Drawer", { screen: "Home" });
     } catch (e) {
       console.error(e);
     }
@@ -59,7 +57,7 @@ export default function Onboarding() {
           if (value !== null) {
             if (JSON.parse(value)) {
               setIsOnboardingPassed("passed");
-              navigation.navigate("Login");
+              navigation.navigate("Drawer", { screen: "Home" });
             }
           } else {
             setIsOnboardingPassed("no-passed");
