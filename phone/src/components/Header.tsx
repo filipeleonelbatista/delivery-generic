@@ -29,7 +29,12 @@ export default function Header() {
         w={64}
         h={64}
         p="$3.5"
-        bg="$blueGray100"
+        bg="$coolGray100"
+        sx={{
+          ":active": {
+            bgColor: "$red200",
+          },
+        }}
       >
         <ButtonIcon as={MenuIcon} color="$red600" size="2xl" />
       </Button>

@@ -1,23 +1,6 @@
 import dayjs from "dayjs";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  getDoc,
-  getDocs,
-  orderBy,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { useCupons } from "../hooks/useCupons";
 import { useLoader } from "../hooks/useLoader";
 import { useToast } from "../hooks/useToast";
@@ -102,8 +85,6 @@ export function ShoppingCartContextProvider(props) {
       severity: "success",
       message: "Item adicionado!",
     });
-    
-    document.getElementById("shopping-cart-button-open-drawer").click();
   }
 
   const handleRemoveProductFromCart = (index) => {

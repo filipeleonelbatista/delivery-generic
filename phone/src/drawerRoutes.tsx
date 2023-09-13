@@ -2,6 +2,9 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./components/CustomDrawer";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
+import Item from "./screens/Item";
+import Products from "./screens/Products";
+import Checkout from "./screens/Checkout";
 
 const Drawer = createDrawerNavigator();
 
@@ -13,7 +16,10 @@ export default function DrawerRoutes() {
       screenOptions={{ headerShown: false }}
     >
       <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Products" component={Products} />
+      <Drawer.Screen name="Item" component={Item} />
       <Drawer.Screen name="Login" component={Login} />
+      <Drawer.Screen name="Checkout" component={Checkout} />
     </Drawer.Navigator>
   );
 }
