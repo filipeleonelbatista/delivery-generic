@@ -24,7 +24,7 @@ export function LoaderContextProvider(props) {
             justifyContent: "center",
           }}
         >
-          <Spinner size="large" />
+          <Spinner size="large" color="$red600" />
         </VStack>
       </Modal>
       {props.children}

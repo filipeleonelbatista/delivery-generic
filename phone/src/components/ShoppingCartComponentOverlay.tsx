@@ -18,12 +18,18 @@ import {
   ActionsheetDragIndicatorWrapper,
   Heading,
   ScrollView,
+  Text,
 } from "@gluestack-ui/themed";
 import ItemCart from "./ItemCart";
 import { formatCurrency } from "../utils/formatCurrency";
+import NoData from "./NoData";
+import { config as defaultConfig } from "@gluestack-ui/themed";
 
 export default function ShoppingCartComponentOverlay(props) {
   const navigation = useNavigation();
+
+  const { colors } = defaultConfig.theme.tokens;
+
   const {
     productsList,
     handleRemoveProductFromCart,
@@ -55,6 +61,24 @@ export default function ShoppingCartComponentOverlay(props) {
             },
           }}
         >
+          <Text
+            sx={{
+              width: 22,
+              height: 22,
+              borderRadius: 22,
+              bgColor: "$white",
+              borderWidth: 1,
+              borderColor: "$red600",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              textAlign: "center",
+              fontSize: 12,
+              fontWeight: "$semibold",
+            }}
+          >
+            {productsList.length}
+          </Text>
           <ButtonIcon
             w={22}
             h={22}
@@ -79,6 +103,41 @@ export default function ShoppingCartComponentOverlay(props) {
                   Seu Pedido
                 </Heading>
               </VStack>
+              {productsList.length === 0 && (
+                <>
+                  <NoData
+                    primaryColor={colors.red600}
+                    description={
+                      <VStack sx={{ maxWidth: "90%" }}>
+                        <Text textAlign="center" fontSize={"$sm"}>
+                          Sem produtos cadastrados no momento. Adicione produtos
+                          ao carrinho de compras e eles aparecerão aqui
+                        </Text>
+                        <Button
+                          onPress={() => {
+                            navigation.navigate("Products");
+                            handleClose();
+                          }}
+                          bg="$red600"
+                          borderRadius={"$full"}
+                          sx={{
+                            my: 16,
+                            ":active": {
+                              bgColor: "$red800",
+                            },
+                          }}
+                        >
+                          <ButtonText>Ver todos os produtos</ButtonText>
+                        </Button>
+                      </VStack>
+                    }
+                    style={{
+                      width: 180,
+                      height: 180,
+                    }}
+                  />
+                </>
+              )}
               {productsList.map((item, index) => (
                 <VStack key={index} my="$1">
                   <ItemCart
@@ -97,7 +156,7 @@ export default function ShoppingCartComponentOverlay(props) {
                   </HStack>
                   <Button
                     onPress={() => {
-                      navigation.navigate("Checkout")
+                      navigation.navigate("Checkout");
                       handleClose();
                     }}
                     bg="$red600"

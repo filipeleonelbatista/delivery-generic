@@ -11,24 +11,42 @@ import {
   Text,
   VStack,
 } from "@gluestack-ui/themed";
+import { config as defaultConfig } from "@gluestack-ui/themed";
+import { useNavigation } from "@react-navigation/native";
+import NoData from "./NoData";
 
 export default function CustomDrawer(props) {
+  const navigation = useNavigation();
+
+  const { colors } = defaultConfig.theme.tokens;
+
+  const isLogged = false;
   return (
     <VStack flex={1} bgColor="$coolGray100">
-      <HStack bgColor={"$red600"} p={16} space={"4xl"}>
-        <HStack space="md">
-          <Avatar bgColor="$coolGray500">
-            {/* <Icon as={User} color="white" size="lg" /> */}
-          </Avatar>
-          <VStack>
-            <Heading color="white" size="sm">
-              Ronald Richards
-            </Heading>
-            <Text color="white" size="sm">
+      <HStack bgColor={"$red600"} p={16} alignItems="center" space={"4xl"}>
+        {isLogged ? (
+          <>
+            <HStack space="md">
+              <Avatar bgColor="$coolGray500">
+                {/* <Icon as={User} color="white" size="lg" /> */}
+              </Avatar>
+              <VStack>
+                <Heading color="white" size="sm">
+                  Ronald Richards
+                </Heading>
+                <Text color="white" size="sm">
+                  Seja bem vindo 👋
+                </Text>
+              </VStack>
+            </HStack>
+          </>
+        ) : (
+          <>
+            <Heading color="white" size="sm" sx={{ width: "70%" }}>
               Seja bem vindo 👋
-            </Text>
-          </VStack>
-        </HStack>
+            </Heading>
+          </>
+        )}
         <Button
           onPress={() => props.navigation.closeDrawer()}
           borderRadius="$full"
@@ -43,71 +61,106 @@ export default function CustomDrawer(props) {
         </Button>
       </HStack>
       <ScrollView>
-        <VStack space="sm" py={16}>
-          <Button
-            sx={{
-              bgColor: "$coolGray100",
-              justifyContent: "space-between",
-              ":active": {
-                bgColor: "$red100",
-              },
-            }}
-          >
-            <ButtonText color="$coolGray800">Cadastrar</ButtonText>
-            <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-          </Button>
-          <Button
-            sx={{
-              bgColor: "$coolGray100",
-              justifyContent: "space-between",
-              ":active": {
-                bgColor: "$red100",
-              },
-            }}
-          >
-            <ButtonText color="$coolGray800">Meus Pedidos</ButtonText>
-            <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-          </Button>
+        {isLogged ? (
+          <VStack space="sm" py={16}>
+            <Button
+              sx={{
+                bgColor: "$coolGray100",
+                justifyContent: "space-between",
+                ":active": {
+                  bgColor: "$red100",
+                },
+              }}
+            >
+              <ButtonText color="$coolGray800">Cadastrar</ButtonText>
+              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
+            </Button>
+            <Button
+              sx={{
+                bgColor: "$coolGray100",
+                justifyContent: "space-between",
+                ":active": {
+                  bgColor: "$red100",
+                },
+              }}
+            >
+              <ButtonText color="$coolGray800">Meus Pedidos</ButtonText>
+              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
+            </Button>
 
-          <Button
-            sx={{
-              bgColor: "$coolGray100",
-              justifyContent: "space-between",
-              ":active": {
-                bgColor: "$red100",
-              },
-            }}
-          >
-            <ButtonText color="$coolGray800">Meu carrinho</ButtonText>
-            <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-          </Button>
+            <Button
+              sx={{
+                bgColor: "$coolGray100",
+                justifyContent: "space-between",
+                ":active": {
+                  bgColor: "$red100",
+                },
+              }}
+            >
+              <ButtonText color="$coolGray800">Meu carrinho</ButtonText>
+              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
+            </Button>
 
-          <Button
-            sx={{
-              bgColor: "$coolGray100",
-              justifyContent: "space-between",
-              ":active": {
-                bgColor: "$red100",
-              },
-            }}
-          >
-            <ButtonText color="$coolGray800">Entrar</ButtonText>
-            <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-          </Button>
+            <Button
+              sx={{
+                bgColor: "$coolGray100",
+                justifyContent: "space-between",
+                ":active": {
+                  bgColor: "$red100",
+                },
+              }}
+            >
+              <ButtonText color="$coolGray800">Entrar</ButtonText>
+              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
+            </Button>
 
-          <Button
-            sx={{
-              bgColor: "$coolGray100",
-              justifyContent: "space-between",
-              ":active": {
-                bgColor: "$red100",
-              },
-            }}
-          >
-            <ButtonText color="$coolGray800">Sair</ButtonText>
-            <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-          </Button>
-        </VStack>
+            <Button
+              sx={{
+                bgColor: "$coolGray100",
+                justifyContent: "space-between",
+                ":active": {
+                  bgColor: "$red100",
+                },
+              }}
+            >
+              <ButtonText color="$coolGray800">Sair</ButtonText>
+              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
+            </Button>
+          </VStack>
+        ) : (
+          <VStack space="sm" py={16}>
+            <NoData
+              primaryColor={colors.red600}
+              description={
+                <VStack sx={{ maxWidth: "90%", marginTop: 20 }}>
+                  <Text textAlign="center" fontSize={"$sm"}>
+                    Entre com seu numero de celular ou crie seu primeiro pedido
+                    para acompanhar e ter acesso a ofertas exclusivas no App!
+                  </Text>
+                  <Button
+                    onPress={() => {
+                      navigation.navigate("Products");
+                    }}
+                    bg="$red600"
+                    borderRadius={"$full"}
+                    sx={{
+                      my: 16,
+                      ":active": {
+                        bgColor: "$red800",
+                      },
+                    }}
+                  >
+                    <ButtonText>Entrar</ButtonText>
+                  </Button>
+                </VStack>
+              }
+              style={{
+                width: 180,
+                height: 180,
+              }}
+            />
+          </VStack>
+        )}
       </ScrollView>
     </VStack>
   );
