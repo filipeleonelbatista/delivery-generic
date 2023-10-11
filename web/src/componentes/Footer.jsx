@@ -123,16 +123,26 @@ function Footer(props) {
           ))}
         </Stack>
 
-        <Stack direction="row" justifyContent="space-between" sx={{ my: 2 }}>
+        <Box
+          sx={{
+            my: 2,
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: { xs: "center", md: "space-between" },
+            alignItems: { xs: "center", md: "flex-start" },
+            gap: 4
+          }}
+        >
           <Stack sx={{ width: "35%" }} direction="column" alignItems={"center"}>
-            <Typography gutterBottom color="white" variant={"body2"}>
+            <Typography gutterBottom textAlign="center" color="white" variant={"body2"}>
               {`${config.street}, ${config.number}, ${config.neigborhood}`}
             </Typography>
-            <Typography gutterBottom color="white" variant={"body2"}>
+            <Typography gutterBottom textAlign="center" color="white" variant={"body2"}>
               {`${config.city}-${config.state}`}
             </Typography>
             <Typography
               gutterBottom
+              textAlign="center"
               color="white"
               variant={"body2"}
             >{`CEP: ${config.zipcode}`}</Typography>
@@ -214,7 +224,7 @@ function Footer(props) {
                 </Stack>
               ))}
           </Stack>
-        </Stack>
+        </Box>
 
         <Copyright color="white" />
       </Container>

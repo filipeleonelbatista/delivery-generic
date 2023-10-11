@@ -1,4 +1,5 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material";
+import { tabsClasses } from "@mui/material/Tabs";
 import { useState } from "react";
 import DrawerComponent from "../componentes/DrawerComponent";
 import ApparenceConfig from "./forms/configs/ApparenceConfig";
@@ -59,6 +60,14 @@ export default function Configuration() {
             value={value}
             onChange={handleChange}
             aria-label="Configuração do sistema"
+            variant="scrollable"
+            scrollButtons
+            allowScrollButtonsMobile
+            sx={{
+              [`& .${tabsClasses.scrollButtons}`]: {
+                "&.Mui-disabled": { opacity: 0.3 },
+              },
+            }}
           >
             <Tab label="Geral" {...a11yProps(0)} />
             <Tab label="Metodos de pagamento" {...a11yProps(1)} />

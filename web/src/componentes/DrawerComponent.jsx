@@ -23,14 +23,18 @@ import * as React from "react";
 import Copyright from "./Copyright";
 
 import {
+  CardMedia,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   Tooltip,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import SEO from "./SEO";
+import { useConfig } from "../hooks/useConfig";
+
+import defaultFavicon from "../assets/defaultFavicon.png";
 
 const drawerWidth = 240;
 
@@ -80,6 +84,7 @@ const Drawer = styled(MuiDrawer, {
 
 export default function DrawerComponent(props) {
   const { logout, isMenuHide, setIsMenuHide } = useAuth();
+  const { config } = useConfig();
 
   const toggleDrawer = () => {
     setIsMenuHide(!isMenuHide);
@@ -143,8 +148,26 @@ export default function DrawerComponent(props) {
               pl: 2,
             }}
           >
-            <WhatsAppIcon />
-            <Typography>FoodDelivery</Typography>
+            <Box
+              sx={{
+                textDecoration: "none",
+                display: "flex",
+              }}
+            >
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/inicio"
+                title={config.name}
+              >
+                <CardMedia
+                  component="img"
+                  sx={{ maxWidth: 30, maxHeight: 30 }}
+                  image={config.logo ?? defaultFavicon}
+                />
+              </Link>
+            </Box>
+            {false && <WhatsAppIcon />}
+            <Typography><b>{config.name ?? "FoodDelivery"}</b></Typography>
           </Box>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />

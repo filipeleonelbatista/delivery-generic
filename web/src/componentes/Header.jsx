@@ -86,6 +86,11 @@ function Header({ hideOption = false }) {
             sx={{
               flex: 1,
               textAlign: { xs: "flex-start", sm: "center" },
+              '& > a':{
+                color: (theme) => theme.palette.primary.main,
+                textDecoration: 'none',
+                fontWeight: 'bold',
+              }
             }}
             title={config.name}
           >
