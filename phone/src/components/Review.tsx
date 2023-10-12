@@ -23,6 +23,8 @@ import { useToast } from "../hooks/useToast";
 import { calcularDistancia } from "../utils/calcularDistancia";
 import { formatCurrency } from "../utils/formatCurrency";
 import NoData from "./NoData";
+import * as Location from "expo-location";
+import { useLoader } from "../hooks/useLoader";
 
 export default function PaymentForm({
   handleBack,
@@ -47,14 +49,29 @@ export default function PaymentForm({
 
   const { config } = useConfig();
   const { addToast } = useToast();
+  const { setIsLoading } = useLoader();
 
-  const [coords, setCoords] = useState();
+  const [coords, setCoords] = useState(null);
 
+  async function requestPermissions() {
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.error("Permissão para acessar a localização negada");
+      return false;
+    }
+    return true;
+  }
   useEffect(() => {
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   const { latitude, longitude } = position.coords;
-    //   setCoords({ lat: latitude, lng: longitude });
-    // });
+    const executeAsync = async () => {
+      if (await requestPermissions()) {
+        const location = await Location.getCurrentPositionAsync({});
+        const latitude = location.coords.latitude;
+        const longitude = location.coords.longitude;
+
+        setCoords({ lat: latitude, lng: longitude });
+      }
+    };
+    executeAsync();
   }, []);
 
   const dinamicDeliveryValue = useMemo(() => {
@@ -67,8 +84,9 @@ export default function PaymentForm({
       return result > config.deliveryTaxValue
         ? result
         : config.deliveryTaxValue;
+    } else {
+      return config.deliveryTaxValue * 3;
     }
-    return 0;
   }, [coords]);
 
   const dinamicCupomValue = useMemo(() => {
@@ -107,45 +125,54 @@ export default function PaymentForm({
   });
 
   const handleSubmitForm = async (formValues) => {
-    const data = {
-      clientId: userInfo.id ?? "",
-      clientObject: userInfo,
-      deliveryType: isDelivery,
-      subtotal: totalShoppingCart,
-      total: generalTotal,
-      discount: dinamicCupomValue,
-      cupomObject: cupom,
-      deliveryValue: dinamicDeliveryValue,
-      status: "Aberto",
-      paymentMethod: selectedPaymentMethod,
-      observation: formValues.observation,
-      items: productsList,
-      createdAt: new Date(Date.now()).getTime(),
-      createdBy: "App",
-      updatedAt: new Date(Date.now()).getTime(),
-      updatedBy: "App",
-    };
+    try {
+      setIsLoading(true);
+      const data = {
+        clientId: userInfo.id ?? "",
+        clientObject: userInfo,
+        deliveryType: isDelivery,
+        subtotal: totalShoppingCart,
+        total: generalTotal,
+        discount: dinamicCupomValue,
+        cupomObject: cupom,
+        deliveryValue: dinamicDeliveryValue,
+        status: "Aberto",
+        paymentMethod: selectedPaymentMethod,
+        observation: formValues.observation,
+        items: productsList,
+        createdAt: new Date(Date.now()).getTime(),
+        createdBy: "App",
+        updatedAt: new Date(Date.now()).getTime(),
+        updatedBy: "App",
+      };
 
-    console.log("DATA", data);
+      const response = await createOrderFromSite(data);
 
-    // const response = await createOrderFromSite(data);
+      if (response.id) {
+        addToast({
+          severity: "success",
+          message: "Pedido criado!",
+        });
 
-    // if (response.id) {
-    //   addToast({
-    //     severity: "success",
-    //     message: "Pedido criado!",
-    //   });
+        navigation.navigate("StatusOrder", { orderId: response.id });
+      } else {
+        addToast({
+          severity: "error",
+          message:
+            "Tivemos um problema ao criar seu pedido, tente novamente mais tarde!",
+        });
+      }
+    } catch (error) {
+      console.log("error handleSubmit Order", error);
 
-    //   localStorage.setItem("@currentOrder", response.id);
-
-    //   navigate(`/acompanharPedido?pedido=${response.id}`);
-    // } else {
-    //   addToast({
-    //     severity: "error",
-    //     message:
-    //       "Tivemos um problema ao criar seu pedido, tente novamente mais tarde!",
-    //   });
-    // }
+      addToast({
+        severity: "error",
+        message:
+          "Tivemos um problema ao criar seu pedido, tente novamente mais tarde!",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

@@ -19,6 +19,8 @@ import React, { useMemo } from "react";
 import { celular, cep, cpf, isStringEmpty } from "../utils/string";
 import { getCepInformation } from "../utils/getCepInformation";
 import { Alert } from "react-native";
+import { useUser } from "../hooks/useUser";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AddressForm({
   handleBack,
@@ -36,6 +38,8 @@ export default function AddressForm({
     setIsDelivery,
     getClientByPhoneNumber,
   } = useShoppingCart();
+
+  const { setUser } = useUser();
 
   const { setIsLoading } = useLoader();
   const { addToast } = useToast();
@@ -229,6 +233,8 @@ export default function AddressForm({
                   severity: "success",
                   message: "Cliente encontrado",
                 });
+                setUser(response[0]);
+                await AsyncStorage.setItem("@user_id", response[0].id);
                 setUserInfo(response[0]);
                 formik.setFieldValue("name", response[0].name ?? "");
                 formik.setFieldValue("cpf", response[0].cpf ?? "");

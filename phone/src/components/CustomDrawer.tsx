@@ -1,3 +1,4 @@
+import { Feather } from "@expo/vector-icons";
 import {
   Avatar,
   Button,
@@ -7,16 +8,20 @@ import {
   CloseIcon,
   Heading,
   HStack,
+  Icon,
   ScrollView,
   Text,
   VStack,
 } from "@gluestack-ui/themed";
 import { config as defaultConfig } from "@gluestack-ui/themed";
 import { useNavigation } from "@react-navigation/native";
+import { useUser } from "../hooks/useUser";
 import NoData from "./NoData";
 
 export default function CustomDrawer(props) {
   const navigation = useNavigation();
+
+  const { user, orderList } = useUser();
 
   const { colors } = defaultConfig.theme.tokens;
 
@@ -24,15 +29,15 @@ export default function CustomDrawer(props) {
   return (
     <VStack flex={1} bgColor="$coolGray100">
       <HStack bgColor={"$red600"} p={16} alignItems="center" space={"4xl"}>
-        {isLogged ? (
+        {user ? (
           <>
             <HStack space="md">
-              <Avatar bgColor="$coolGray500">
-                {/* <Icon as={User} color="white" size="lg" /> */}
+              <Avatar bgColor="$white">
+                <Feather name="user" color={colors.red600} size={28} />
               </Avatar>
               <VStack>
                 <Heading color="white" size="sm">
-                  Ronald Richards
+                  {user?.name}
                 </Heading>
                 <Text color="white" size="sm">
                   Seja bem vindo 👋
@@ -61,20 +66,8 @@ export default function CustomDrawer(props) {
         </Button>
       </HStack>
       <ScrollView>
-        {isLogged ? (
+        {user ? (
           <VStack space="sm" py={16}>
-            <Button
-              sx={{
-                bgColor: "$coolGray100",
-                justifyContent: "space-between",
-                ":active": {
-                  bgColor: "$red100",
-                },
-              }}
-            >
-              <ButtonText color="$coolGray800">Cadastrar</ButtonText>
-              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-            </Button>
             <Button
               sx={{
                 bgColor: "$coolGray100",
@@ -98,19 +91,6 @@ export default function CustomDrawer(props) {
               }}
             >
               <ButtonText color="$coolGray800">Meu carrinho</ButtonText>
-              <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
-            </Button>
-
-            <Button
-              sx={{
-                bgColor: "$coolGray100",
-                justifyContent: "space-between",
-                ":active": {
-                  bgColor: "$red100",
-                },
-              }}
-            >
-              <ButtonText color="$coolGray800">Entrar</ButtonText>
               <ButtonIcon as={ChevronRightIcon} color="$coolGray800" />
             </Button>
 

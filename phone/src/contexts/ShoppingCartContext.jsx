@@ -1,9 +1,11 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import dayjs from "dayjs";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 import { createContext, useEffect, useMemo, useState } from "react";
 import { useCupons } from "../hooks/useCupons";
 import { useLoader } from "../hooks/useLoader";
 import { useToast } from "../hooks/useToast";
+import { useUser } from "../hooks/useUser";
 import { db } from "../services/firebase-config";
 
 export const ShoppingCartContext = createContext({});
@@ -12,6 +14,7 @@ export function ShoppingCartContextProvider(props) {
   const { setIsLoading } = useLoader();
   const { addToast } = useToast();
   const { cuponsList } = useCupons();
+  const { loadData } = useUser();
 
   const [productsList, setProductsList] = useState([]);
 
@@ -115,6 +118,8 @@ export function ShoppingCartContextProvider(props) {
       const clienteRef = collection(db, "clientes");
       const clientResponse = await addDoc(clienteRef, data.clientObject);
       data.clientId = clientResponse.id;
+      await AsyncStorage.setItem("@user_id", clientResponse.id)
+      await loadData();
     }
 
     const orderRef = collection(db, "pedidos");

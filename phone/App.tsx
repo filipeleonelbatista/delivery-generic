@@ -14,6 +14,7 @@ import { ProductsContextProvider } from "./src/contexts/ProductContext";
 import { ShoppingCartContextProvider } from "./src/contexts/ShoppingCartContext";
 import { ToastContextProvider } from "./src/contexts/ToastContext";
 import Routes from "./src/routes";
+import { UserContextProvider } from "./src/contexts/UserContext";
 
 export default function App() {
   return (
@@ -30,13 +31,15 @@ export default function App() {
                         <CuponsContextProvider>
                           <OrderContextProvider>
                             <ShoppingCartContextProvider>
-                              <Box
-                                bg={"$red600"}
-                                height={RNStatusBar.currentHeight}
-                              >
-                                <StatusBar style="light" />
-                              </Box>
-                              <Routes />
+                              <UserContextProvider>
+                                <Box
+                                  bg={"$red600"}
+                                  height={RNStatusBar.currentHeight}
+                                >
+                                  <StatusBar style="light" />
+                                </Box>
+                                <Routes />
+                              </UserContextProvider>
                             </ShoppingCartContextProvider>
                           </OrderContextProvider>
                         </CuponsContextProvider>
