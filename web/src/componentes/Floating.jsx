@@ -58,7 +58,7 @@ export default function Floating() {
         messate: `Houve um problema ao enviar seu contato. Estaremos encaminhando você para o nosso WhatsApp`,
       });
 
-      let whatsPhone = `+5551986320477`;
+      let whatsPhone = `+5551992736445`;
       let whatsMsg = `Olá, me chamo *${formValues.name}* vi seu app e gostaria de conversar mais com você.`;
       let url = `https://api.whatsapp.com/send?phone=${whatsPhone}&text=${encodeURI(
         whatsMsg

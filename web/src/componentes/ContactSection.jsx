@@ -126,9 +126,9 @@ export default function ContactSection({ location = "" }) {
                 underline="none"
                 target="_blank"
                 rel="noopener noreferrer"
-                href="mailto:filipe.x@live.com"
+                href="mailto:filipe.x2016@gmail.com"
               >
-                filipe.x@live.com
+                filipe.x2016@gmail.com
               </Link>
             </b>
           </Typography>

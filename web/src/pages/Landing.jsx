@@ -108,6 +108,22 @@ export default function Landing() {
     getCurrentIP();
   }, []);
 
+  useEffect(() => {
+    const styleElement = document.createElement("style");
+
+    styleElement.innerHTML = `
+      html {
+        overflow-x: hidden;
+      }
+    `;
+
+    document.head.appendChild(styleElement);
+
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+
   return (
     <Box
       component="div"
@@ -441,7 +457,7 @@ export default function Landing() {
           <Typography variant="h2" textAlign="center">
             Veja o que o Meu <b>Whats</b> delivery pode fazer por sua empresa
           </Typography>
-          <Grid container spacing={2}>
+          <Grid container justifyContent={"center"} spacing={2}>
             <Grid item sx={4}>
               <Card
                 sx={{
@@ -737,7 +753,7 @@ export default function Landing() {
         <Container
           sx={{
             display: "flex",
-            flexDirection: size[0] < 720 ? "column-reverse" : "row",
+            flexDirection: size[0] < 720 ? "column" : "row",
             gap: 3,
             textAlign: size[0] > 720 ? "start" : "center",
             alignItems: "center",
@@ -784,6 +800,9 @@ export default function Landing() {
               height: "auto",
               borderRadius: 1,
               overflow: "hidden",
+              margin: 0,
+              padding: 0,
+              aspectRatio: "16 / 9",
             }}
           >
             <ReactPlayer

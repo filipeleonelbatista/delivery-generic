@@ -1,6 +1,8 @@
 import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import StorefrontIcon from "@mui/icons-material/Storefront";
 import {
   Button,
   IconButton,
@@ -8,7 +10,7 @@ import {
   Menu,
   MenuItem,
   Stack,
-  Typography
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
@@ -104,11 +106,17 @@ export default function HomeNavigation() {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick={() => navigate("/entrar")}>
+              <MenuItem onClick={() => navigate("/login")}>
                 <ListItemIcon>
-                  <LoginIcon />
+                  <DashboardIcon />
                 </ListItemIcon>
-                Entrar
+                Painel de Demonstração
+              </MenuItem>
+              <MenuItem onClick={() => navigate("/")}>
+                <ListItemIcon>
+                  <StorefrontIcon />
+                </ListItemIcon>
+                Loja de Demonstração
               </MenuItem>
             </Menu>
           </>
@@ -121,6 +129,45 @@ export default function HomeNavigation() {
               gap: 2,
             }}
           >
+            <Button
+              variant="outlined"
+              sx={{
+                borderRadius: 8,
+                color: "white",
+                borderColor: "white",
+                "&:hover": {
+                  color: "#CCC",
+                  borderColor: "#CCC",
+                },
+                "& svg": {
+                  marginRight: 1,
+                },
+              }}
+              onClick={() => navigate("/")}
+            >
+              <StorefrontIcon />
+              Loja de Demo
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{
+                borderRadius: 8,
+                color: "white",
+                borderColor: "white",
+                "&:hover": {
+                  color: "#CCC",
+                  borderColor: "#CCC",
+                },
+                "& svg": {
+                  marginRight: 1,
+                },
+              }}
+              onClick={() => navigate("/")}
+            >
+              <DashboardIcon />
+              Painel Demo
+            </Button>
+
             <Button
               variant="contained"
               sx={{

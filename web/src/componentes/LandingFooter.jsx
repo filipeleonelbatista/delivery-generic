@@ -51,7 +51,7 @@ export default function LandingFooter() {
       >
         <Link
           rel="noreferrer noopener"
-          href="https://instagram.com/cadastra.pet"
+          href="https://wa.me/+5551992736445"
         >
           <WhatsAppIcon size="large" sx={{ color: "white" }} />
         </Link>
