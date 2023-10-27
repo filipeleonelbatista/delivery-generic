@@ -334,11 +334,11 @@ export default function Landing() {
                 Já pensou em ter seu delivery? 👋
               </Typography>
               <Typography color="white" sx={{ maxWidth: 450 }} variant="h2">
-                Meu <b>Whats</b> Delivery é seu delivery online
+                My <b>Delivery</b> App é seu delivery online
               </Typography>
               <u></u>
               <Typography color="white" sx={{ maxWidth: 450 }} variant="body1">
-                Com o app Meu <b>Whats</b> Delivery seus clientes fazem os
+                Com o app My <b>Delivery</b> App seus clientes fazem os
                 pedidos online e podem acompanhar em tempo real sem burocracia e
                 você tem total controle dos pedidos online.
               </Typography>
@@ -455,7 +455,7 @@ export default function Landing() {
             SERVIÇOS
           </Typography>
           <Typography variant="h2" textAlign="center">
-            Veja o que o Meu <b>Whats</b> delivery pode fazer por sua empresa
+            Veja o que o My <b>Delivery</b> App pode fazer por sua empresa
           </Typography>
           <Grid container justifyContent={"center"} spacing={2}>
             <Grid item sx={4}>

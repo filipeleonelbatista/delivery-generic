@@ -33,12 +33,11 @@ export default function LandingFooter() {
         <Stack direction={"row"} spacing={2} alignItems="center">
           <WhatsAppIcon />
           <Typography variation="body2">
-            Meu <b>Whats</b> Delivery
+            My <b>Delivery</b> App
           </Typography>
         </Stack>
         <Typography sx={{ mt: 2 }} variant="body1">
-          &copy; {new Date(Date.now()).getFullYear()} - Meu <b>Whats</b>{" "}
-          Delivery
+          &copy; {new Date(Date.now()).getFullYear()} - My <b>Delivery</b> App
         </Typography>
         <Typography variant="body1">Todos os direitos reservados</Typography>
       </Box>
@@ -49,10 +48,7 @@ export default function LandingFooter() {
           gap: 2,
         }}
       >
-        <Link
-          rel="noreferrer noopener"
-          href="https://wa.me/+5551992736445"
-        >
+        <Link rel="noreferrer noopener" href="https://wa.me/+5551992736445">
           <WhatsAppIcon size="large" sx={{ color: "white" }} />
         </Link>
       </Box>

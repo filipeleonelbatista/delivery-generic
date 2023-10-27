@@ -48,7 +48,7 @@ export default function HomeNavigation() {
         <Stack direction={"row"} spacing={2} alignItems="center">
           <WhatsAppIcon />
           <Typography variation="body2">
-            Meu <b>Whats</b> Delivery
+            My <b>Delivery</b> App
           </Typography>
         </Stack>
       </Link>
