@@ -162,7 +162,7 @@ export default function HomeNavigation() {
                   marginRight: 1,
                 },
               }}
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/login")}
             >
               <DashboardIcon />
               Painel Demo
