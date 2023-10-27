@@ -38,10 +38,11 @@ export default function HomeNavigation() {
         alignItems: "center",
         justifyContent: "space-between",
         width: "100%",
-        py: 2.8,
+        py: 2,
         px: 4,
-        backgroundColor: (theme) => theme.palette.primary.light,
+        backgroundColor: (theme) => theme.palette.primary.light + "cc",
         zIndex: 100,
+        backdropFilter: "blur(4px)",
       }}
     >
       <Link to="/landing" style={{ textDecoration: "none", color: "white" }}>
