@@ -168,7 +168,7 @@ export default function DrawerComponent(props) {
             </Box>
             {false && <WhatsAppIcon />}
             <Typography>
-              <b>{config.name ?? "FoodDelivery"}</b>
+              <b>{config.name ?? "My Delivery App"}</b>
             </Typography>
           </Box>
           <IconButton onClick={toggleDrawer}>

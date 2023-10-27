@@ -96,7 +96,7 @@ function Footer(props) {
       />
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 10 }}>
         <Typography variant="h6" align="center" gutterBottom color="white">
-          {props.title}
+          {config?.name ?? props.title}
         </Typography>
 
         <Stack

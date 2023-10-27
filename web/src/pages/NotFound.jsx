@@ -82,7 +82,7 @@ function NotFound() {
           </Stack>
         </main>
       </Container>
-      <Footer title="Food Delivery" />
+      <Footer title="My Delivery App" />
     </>
   );
 }
