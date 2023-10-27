@@ -70,7 +70,6 @@ export default function Login() {
     try {
       setIsLoading(true);
       if (formValues.remember) {
-        console.log("entrei");
         secureLocalStorage.setItem(
           "remember",
           JSON.stringify({
@@ -81,7 +80,13 @@ export default function Login() {
       }
       const isLogged = await signInUser(formValues.email, formValues.password);
       if (isLogged.status) {
-        navigate("/inicio");
+        if (isLogged?.user?.isActive) {
+          navigate("/inicio");
+        } else {
+          alert(
+            "Este usuário precisa ser aprovado pelo administrador do sistema."
+          );
+        }
       } else {
         alert(isLogged.message);
       }
@@ -99,7 +104,13 @@ export default function Login() {
         const user = JSON.parse(response);
         const isLogged = await signInUser(user.email, user.password);
         if (isLogged.status) {
-          navigate("/inicio");
+          if (isLogged?.user?.isActive) {
+            navigate("/inicio");
+          } else {
+            alert(
+              "Este usuário precisa ser aprovado pelo administrador do sistema."
+            );
+          }
         } else {
           alert(isLogged.message);
         }

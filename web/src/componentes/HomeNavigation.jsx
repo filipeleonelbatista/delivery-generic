@@ -16,6 +16,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useResize } from "../hooks/useResize";
+import secureLocalStorage from "react-secure-storage";
 
 export default function HomeNavigation() {
   const navigate = useNavigate();
@@ -107,7 +108,19 @@ export default function HomeNavigation() {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick={() => navigate("/login")}>
+              <MenuItem
+                onClick={() => {
+                  secureLocalStorage.setItem(
+                    "remember",
+                    JSON.stringify({
+                      email: "admin@mydeliveryapp.com",
+                      password: "admin@123",
+                    })
+                  );
+
+                  navigate("/login");
+                }}
+              >
                 <ListItemIcon>
                   <DashboardIcon />
                 </ListItemIcon>
