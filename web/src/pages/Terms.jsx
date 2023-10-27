@@ -1,30 +1,15 @@
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { Divider, Stack, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Footer from "../componentes/Footer";
 import Header from "../componentes/Header";
-import MainFeaturedPost from "../componentes/MainFeaturedPost";
 
 function Terms() {
-  const sections = [];
-
-  const mainFeaturedPost = {
-    title: "Termos e condições",
-    description: "",
-    image: "https://source.unsplash.com/random?food",
-    imageText: "main image description",
-    linkText: "",
-  };
-
   return (
     <>
       <Container maxWidth="lg">
-        <Header title="Food Delivery" sections={sections} />
+        <Header title="Food Delivery" hideOption />
         <main>
-          <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={5} sx={{ mt: 3 }}>
             <Grid
               item
@@ -40,9 +25,14 @@ function Terms() {
                 direction="row"
                 spacing={1}
                 alignItems="center"
-                justifyContent="space-between"
+                justifyContent="center"
               >
-                <Typography variant="h6" gutterBottom>
+                <Typography
+                  variant="h4"
+                  textAlign="center"
+                  fontWeight={"bold"}
+                  gutterBottom
+                >
                   Termos e condições de uso da plataforma
                 </Typography>
               </Stack>
@@ -54,14 +44,12 @@ function Terms() {
                     display: "flex",
                     alignIgems: "center",
                     justifyContent: "center",
-                    margin: "2rem 0",
                   }}
                 >
                   <div
                     style={{
                       maxWidth: "720px",
                       width: "100%",
-                      padding: "1.4rem",
                     }}
                   >
                     <h2>1. Termos</h2>

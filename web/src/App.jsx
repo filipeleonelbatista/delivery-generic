@@ -15,6 +15,7 @@ import "./styles/styles.css";
 
 import { register } from "swiper/element/bundle";
 import { ShoppingCartContextProvider } from "./contexts/ShoppingCartContext";
+import AcceptTerms from "./componentes/AcceptTerms";
 register();
 
 const theme = createTheme({
@@ -44,6 +45,7 @@ function App() {
                           <ShoppingCartContextProvider>
                             <CssBaseline />
                             <Routes />
+                            <AcceptTerms />
                           </ShoppingCartContextProvider>
                         </OrderContextProvider>
                       </CuponsContextProvider>
