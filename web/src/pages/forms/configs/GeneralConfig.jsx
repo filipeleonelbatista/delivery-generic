@@ -5,6 +5,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import SaveIcon from "@mui/icons-material/Save";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import { celular, cnpj } from "../../../utils/string";
+import AdbIcon from "@mui/icons-material/Adb";
+import AppleIcon from "@mui/icons-material/Apple";
 
 import {
   Box,
@@ -62,6 +64,8 @@ export default function GeneralConfig() {
       instagram: config.instagram ?? "",
       facebook: config.facebook ?? "",
       mapLink: config.mapLink ?? "",
+      androidLink: config.androidLink ?? "",
+      appleLink: config.appleLink ?? "",
       isMaintence: config.isMaintence ?? false,
       itemsPerPage: config.itemsPerPage ?? 10,
     },
@@ -86,6 +90,8 @@ export default function GeneralConfig() {
         instagram: formValues.instagram,
         facebook: formValues.facebook,
         mapLink: formValues.mapLink,
+        androidLink: formValues.androidLink,
+        appleLink: formValues.appleLink,
         isMaintence: formValues.isMaintence,
         itemsPerPage: Number(formValues.itemsPerPage),
         updatedAt: new Date(Date.now()).getTime(),
@@ -362,6 +368,66 @@ export default function GeneralConfig() {
               id="mapLink-helper-text"
             >
               {formik.errors.mapLink}
+            </FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl fullWidth sx={{ my: 1 }}>
+          <InputLabel htmlFor="androidLink">
+            Link do Aplicativo Android
+          </InputLabel>
+          <OutlinedInput
+            label="Link do Aplicativo Android"
+            margin="normal"
+            fullWidth
+            startAdornment={
+              <InputAdornment position="start">
+                <AdbIcon />
+              </InputAdornment>
+            }
+            id="androidLink"
+            onChange={(event) =>
+              formik.setFieldValue("androidLink", event.target.value)
+            }
+            value={formik.values.androidLink}
+            error={!!formik.errors.androidLink}
+          />
+
+          {!!formik.errors.androidLink && (
+            <FormHelperText
+              error={!!formik.errors.androidLink}
+              id="androidLink-helper-text"
+            >
+              {formik.errors.androidLink}
+            </FormHelperText>
+          )}
+        </FormControl>
+
+        <FormControl fullWidth sx={{ my: 1 }}>
+          <InputLabel htmlFor="appleLink">Link do Aplicativo Iphone</InputLabel>
+          <OutlinedInput
+            label="Link do Aplicativo Iphone"
+            margin="normal"
+            fullWidth
+            startAdornment={
+              <InputAdornment position="start">
+                <AppleIcon />
+              </InputAdornment>
+            }
+            id="appleLink"
+            onChange={(event) =>
+              formik.setFieldValue("appleLink", event.target.value)
+            }
+            value={formik.values.appleLink}
+            error={!!formik.errors.appleLink}
+          />
+
+          {!!formik.errors.appleLink && (
+            <FormHelperText
+              error={!!formik.errors.appleLink}
+              id="appleLink-helper-text"
+            >
+              {formik.errors.appleLink}
             </FormHelperText>
           )}
         </FormControl>

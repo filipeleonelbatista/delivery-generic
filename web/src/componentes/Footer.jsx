@@ -9,7 +9,8 @@ import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Copyright from "./Copyright";
-
+import GPImage from "../assets/gp_badge.png";
+import ASImage from "../assets/as_badge.png";
 import { useMemo } from "react";
 import FooterBg from "../assets/footer_bg.png";
 import { useConfig } from "../hooks/useConfig";
@@ -130,14 +131,24 @@ function Footer(props) {
             flexDirection: { xs: "column", md: "row" },
             justifyContent: { xs: "center", md: "space-between" },
             alignItems: { xs: "center", md: "flex-start" },
-            gap: 4
+            gap: 4,
           }}
         >
           <Stack sx={{ width: "35%" }} direction="column" alignItems={"center"}>
-            <Typography gutterBottom textAlign="center" color="white" variant={"body2"}>
+            <Typography
+              gutterBottom
+              textAlign="center"
+              color="white"
+              variant={"body2"}
+            >
               {`${config.street}, ${config.number}, ${config.neigborhood}`}
             </Typography>
-            <Typography gutterBottom textAlign="center" color="white" variant={"body2"}>
+            <Typography
+              gutterBottom
+              textAlign="center"
+              color="white"
+              variant={"body2"}
+            >
               {`${config.city}-${config.state}`}
             </Typography>
             <Typography
@@ -197,7 +208,12 @@ function Footer(props) {
             )}
           </Stack>
           <Stack sx={{ width: "35%" }} direction="column" alignItems={"center"}>
-            <Typography color="white" variant="body1" sx={{ mb: 2 }}>
+            <Typography
+              color="white"
+              textAlign="center"
+              variant="body1"
+              sx={{ mb: 2 }}
+            >
               <b>Horários de atendimento</b>
             </Typography>
             {config?.openingHours?.length > 0 &&
@@ -225,6 +241,62 @@ function Footer(props) {
               ))}
           </Stack>
         </Box>
+
+        {(config?.androidLink || config?.appleLink) && (
+          <>
+            <Typography
+              color="white"
+              textAlign="center"
+              variant="body1"
+              sx={{ mb: 2 }}
+            >
+              <b>Baixe nosso aplicativo</b>
+            </Typography>
+
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: { xs: "column", md: "row" },
+                alignItems: { xs: "center", md: "center" },
+                justifyContent: { xs: "center", md: "center" },
+                gap: { xs: 0, md: 2 },
+              }}
+            >
+              {config?.androidLink && (
+                <a
+                  rel="noreferer noopener"
+                  target="_blank"
+                  href={config?.androidLink}
+                >
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      width: 140,
+                      minHeight: 10,
+                    }}
+                    src={GPImage}
+                  />
+                </a>
+              )}
+              {config?.appleLink && (
+                <a
+                  rel="noreferer noopener"
+                  target="_blank"
+                  href={config?.appleLink}
+                >
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      width: 150,
+                      minHeight: 10,
+                    }}
+                    src={ASImage}
+                  />
+                </a>
+              )}
+            </Box>
+          </>
+        )}
 
         <Copyright color="white" />
       </Container>
