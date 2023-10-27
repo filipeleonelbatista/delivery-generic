@@ -167,7 +167,9 @@ export default function DrawerComponent(props) {
               </Link>
             </Box>
             {false && <WhatsAppIcon />}
-            <Typography><b>{config.name ?? "FoodDelivery"}</b></Typography>
+            <Typography>
+              <b>{config.name ?? "FoodDelivery"}</b>
+            </Typography>
           </Box>
           <IconButton onClick={toggleDrawer}>
             <ChevronLeftIcon />
@@ -306,19 +308,30 @@ export default function DrawerComponent(props) {
               {props.header}
             </Box>
           )}
-          <Box
-            sx={{
-              w: "100%",
-              borderRadius: 2,
-              p: 4,
-              backgroundColor: (theme) =>
-                theme.palette.mode === "light"
-                  ? "#FFF"
-                  : theme.palette.grey[800],
-            }}
-          >
-            {props.children}
-          </Box>
+          {props.outBox ? (
+            <Box
+              sx={{
+                w: "100%",
+                borderRadius: 2,
+              }}
+            >
+              {props.children}
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                w: "100%",
+                borderRadius: 2,
+                p: 4,
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "light"
+                    ? "#FFF"
+                    : theme.palette.grey[800],
+              }}
+            >
+              {props.children}
+            </Box>
+          )}
           <Copyright color="gray.800" />
         </Container>
       </Box>

@@ -1,0 +1,9 @@
+{
+  "name": "delivery-generic",
+  "scripts": {
+    "mobile": "cd ./phone && expo start",
+    "web": "cd ./web && yarn dev",
+    "install": "cd ./phone && yarn && cd ../web && yarn"
+  },
+  "private": true
+}

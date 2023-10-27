@@ -102,7 +102,6 @@ export function OrderContextProvider(props) {
       ...currentOrder,
       updatedAt: new Date(Date.now()).getTime(),
     };
-    console.log("updatedValue", updatedValue);
 
     await updateOrder(updatedValue);
   }
