@@ -15,12 +15,10 @@ export default function Copyright(props) {
       }}
     >
       <Typography variant="body2" color="primary" align="center" {...props}>
-        {"Copyright © "}
+        {new Date().getFullYear()} &copy; Direitos reservados{" "}
         <Link color="primary" href="https://filipeleonelbatista.vercel.app/">
           Desenvolvedor de aplicativos
-        </Link>{" "}
-        {new Date().getFullYear()}
-        {"."}
+        </Link>
       </Typography>
       <Typography
         variant="body2"
