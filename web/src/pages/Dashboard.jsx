@@ -460,6 +460,9 @@ export default function Dashboard() {
                 }}
               >
                 <DataGrid
+                  getRowId={(row) => {
+                    return row.id;
+                  }}
                   rowHeight={100}
                   initialState={{
                     sorting: {
@@ -572,6 +575,9 @@ export default function Dashboard() {
                 }}
               >
                 <DataGrid
+                  getRowId={(row) => {
+                    return row.id;
+                  }}
                   rowHeight={100}
                   initialState={{
                     sorting: {
@@ -685,6 +691,9 @@ export default function Dashboard() {
             }}
           >
             <DataGrid
+              getRowId={(row) => {
+                return row.id;
+              }}
               rowHeight={100}
               initialState={{
                 sorting: {
@@ -814,6 +823,9 @@ export default function Dashboard() {
                 }}
               >
                 <DataGrid
+                  getRowId={(row) => {
+                    return row.customerId;
+                  }}
                   rowHeight={100}
                   initialState={{
                     sorting: {
@@ -929,6 +941,9 @@ export default function Dashboard() {
                 }}
               >
                 <DataGrid
+                  getRowId={(row) => {
+                    return row.id;
+                  }}
                   rowHeight={100}
                   initialState={{
                     sorting: {
