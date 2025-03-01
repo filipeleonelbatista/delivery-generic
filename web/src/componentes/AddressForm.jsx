@@ -216,135 +216,141 @@ export default function AddressForm({
           helperText={formik.errors.cpf}
           error={!!formik.errors.cpf}
         />
-        <Typography variant="body2" my={2}>
-          Endereço pra entrega
-        </Typography>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="CEP"
-              inputProps={{
-                maxLength: 9,
-              }}
-              fullWidth
-              id="zipcode"
-              onChange={(event) => {
-                formik.setFieldValue("zipcode", cep(event.target.value));
-              }}
-              onBlur={async (event) => {
-                if (event.target.value.length === 9) {
-                  try {
-                    setIsLoading(true);
-                    const resultCep = await getCepInformation(
-                      event.target.value
-                    );
-                    if (resultCep.data.erro) {
-                      addToast({
-                        message: "CEP Não encontrado!",
-                        severity: "warning",
-                      });
-                    } else {
-                      if (resultCep.status === 200) {
-                        formik.setFieldValue(
-                          "neigborhood",
-                          resultCep.data.bairro
-                        );
-                        formik.setFieldValue(
-                          "street",
-                          resultCep.data.logradouro
-                        );
-                        formik.setFieldValue("city", resultCep.data.localidade);
-                        formik.setFieldValue("state", resultCep.data.uf);
+        {
+          formik.values.isDelivery === "Entrega" && (
+            <>
+              <Typography variant="body2" my={2}>
+                Endereço pra entrega
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="CEP"
+                    inputProps={{
+                      maxLength: 9,
+                    }}
+                    fullWidth
+                    id="zipcode"
+                    onChange={(event) => {
+                      formik.setFieldValue("zipcode", cep(event.target.value));
+                    }}
+                    onBlur={async (event) => {
+                      if (event.target.value.length === 9) {
+                        try {
+                          setIsLoading(true);
+                          const resultCep = await getCepInformation(
+                            event.target.value
+                          );
+                          if (resultCep.data.erro) {
+                            addToast({
+                              message: "CEP Não encontrado!",
+                              severity: "warning",
+                            });
+                          } else {
+                            if (resultCep.status === 200) {
+                              formik.setFieldValue(
+                                "neigborhood",
+                                resultCep.data.bairro
+                              );
+                              formik.setFieldValue(
+                                "street",
+                                resultCep.data.logradouro
+                              );
+                              formik.setFieldValue("city", resultCep.data.localidade);
+                              formik.setFieldValue("state", resultCep.data.uf);
 
-                        addToast({
-                          message: "CEP Encontrado!",
-                          severity: "success",
-                        });
-                      } else {
-                        addToast({
-                          message: "Não foi possivel pesquisar o CEP!",
-                          severity: "error",
-                        });
+                              addToast({
+                                message: "CEP Encontrado!",
+                                severity: "success",
+                              });
+                            } else {
+                              addToast({
+                                message: "Não foi possivel pesquisar o CEP!",
+                                severity: "error",
+                              });
+                            }
+                          }
+                        } catch (error) {
+                          console.log("locateCep error", error);
+                        } finally {
+                          setIsLoading(false);
+                        }
                       }
+                    }}
+                    value={formik.values.zipcode}
+                    helperText={formik.errors.zipcode}
+                    error={!!formik.errors.zipcode}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="Rua"
+                    fullWidth
+                    id="street"
+                    onChange={(event) =>
+                      formik.setFieldValue("street", event.target.value)
                     }
-                  } catch (error) {
-                    console.log("locateCep error", error);
-                  } finally {
-                    setIsLoading(false);
-                  }
-                }
-              }}
-              value={formik.values.zipcode}
-              helperText={formik.errors.zipcode}
-              error={!!formik.errors.zipcode}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Rua"
-              fullWidth
-              id="street"
-              onChange={(event) =>
-                formik.setFieldValue("street", event.target.value)
-              }
-              value={formik.values.street}
-              helperText={formik.errors.street}
-              error={!!formik.errors.street}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Numero"
-              fullWidth
-              id="number"
-              onChange={(event) =>
-                formik.setFieldValue("number", event.target.value)
-              }
-              value={formik.values.number}
-              helperText={formik.errors.number}
-              error={!!formik.errors.number}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Bairro"
-              fullWidth
-              id="neigborhood"
-              onChange={(event) =>
-                formik.setFieldValue("neigborhood", event.target.value)
-              }
-              value={formik.values.neigborhood}
-              helperText={formik.errors.neigborhood}
-              error={!!formik.errors.neigborhood}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Cidade"
-              fullWidth
-              id="city"
-              onChange={(event) =>
-                formik.setFieldValue("city", event.target.value)
-              }
-              value={formik.values.city}
-              helperText={formik.errors.city}
-              error={!!formik.errors.city}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Estado"
-              fullWidth
-              id="state"
-              onChange={(event) =>
-                formik.setFieldValue("state", event.target.value)
-              }
-              value={formik.values.state}
-              helperText={formik.errors.state}
-              error={!!formik.errors.state}
-            />
-          </Grid>
-        </Grid>
+                    value={formik.values.street}
+                    helperText={formik.errors.street}
+                    error={!!formik.errors.street}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Numero"
+                    fullWidth
+                    id="number"
+                    onChange={(event) =>
+                      formik.setFieldValue("number", event.target.value)
+                    }
+                    value={formik.values.number}
+                    helperText={formik.errors.number}
+                    error={!!formik.errors.number}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Bairro"
+                    fullWidth
+                    id="neigborhood"
+                    onChange={(event) =>
+                      formik.setFieldValue("neigborhood", event.target.value)
+                    }
+                    value={formik.values.neigborhood}
+                    helperText={formik.errors.neigborhood}
+                    error={!!formik.errors.neigborhood}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Cidade"
+                    fullWidth
+                    id="city"
+                    onChange={(event) =>
+                      formik.setFieldValue("city", event.target.value)
+                    }
+                    value={formik.values.city}
+                    helperText={formik.errors.city}
+                    error={!!formik.errors.city}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    label="Estado"
+                    fullWidth
+                    id="state"
+                    onChange={(event) =>
+                      formik.setFieldValue("state", event.target.value)
+                    }
+                    value={formik.values.state}
+                    helperText={formik.errors.state}
+                    error={!!formik.errors.state}
+                  />
+                </Grid>
+              </Grid>
+            </>
+          )
+        }
       </Box>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         {activeStep !== 0 && (

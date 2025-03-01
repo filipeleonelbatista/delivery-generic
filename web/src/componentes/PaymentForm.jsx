@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
@@ -15,6 +16,7 @@ import { useConfig } from "../hooks/useConfig";
 import { useLoader } from "../hooks/useLoader";
 import { useShoppingCart } from "../hooks/useShoppingCart";
 import { useToast } from "../hooks/useToast";
+import { maskCurrency } from "../utils/formatCurrency";
 
 export default function PaymentForm({
   handleBack,
@@ -22,15 +24,18 @@ export default function PaymentForm({
   activeStep,
   steps,
 }) {
-  const { selectedPaymentMethod, setselectedPaymentMethod, verifyCupom } =
+  const { selectedPaymentMethod, setselectedPaymentMethod, verifyCupom, setChange } =
     useShoppingCart();
   const { config } = useConfig();
 
   const formSchema = useMemo(() => {
     return Yup.object().shape({
-      paymentMethod: Yup.string().required(
-        "O campo Método de pagamento é obrigatório"
-      ),
+      paymentMethod: Yup.string().required("O campo Método de pagamento é obrigatório"),
+      change: Yup.string().when('paymentMethod', {
+        is: 'isMoney',
+        then: () => Yup.string().required('O campo Troco é obrigatório'),
+        otherwise: () => Yup.string().default('0,00')
+      }),
       cupom: Yup.string().test(
         "cupom-valido",
         "Cupom inválido",
@@ -44,10 +49,12 @@ export default function PaymentForm({
     });
   }, []);
 
+
   const formik = useFormik({
     initialValues: {
       paymentMethod: selectedPaymentMethod ?? "isMoney",
       cupom: "",
+      change: "0,00"
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
@@ -57,6 +64,7 @@ export default function PaymentForm({
 
   const handleSubmitForm = async (formValues) => {
     setselectedPaymentMethod(formValues.paymentMethod);
+    setChange(formValues.change);
     handleNext();
   };
   return (
@@ -108,6 +116,24 @@ export default function PaymentForm({
             )}
           </Select>
         </FormControl>
+
+        {
+          formik.values.paymentMethod === "isMoney" && (
+            <TextField
+              fullWidth
+              sx={{ mb: 2 }}
+              id="change"
+              label="Troco para"
+              value={formik.values.change}
+              onChange={(event) =>
+                formik.setFieldValue("change", maskCurrency(event.target.value))
+              }
+              error={!!formik.errors.change}
+              helperText={formik.errors.change}
+            />
+          )
+        }
+
         <TextField
           fullWidth
           id="cupom"

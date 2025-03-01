@@ -35,6 +35,7 @@ export function ShoppingCartContextProvider(props) {
   const [userInfo, setUserInfo] = useState(null);
 
   const [selectedPaymentMethod, setselectedPaymentMethod] = useState(null);
+  const [change, setChange] = useState('0,00');
   const [isDelivery, setIsDelivery] = useState("Entrega");
   const [cupom, setCupom] = useState(null);
 
@@ -102,7 +103,7 @@ export function ShoppingCartContextProvider(props) {
       severity: "success",
       message: "Item adicionado!",
     });
-    
+
     document.getElementById("shopping-cart-button-open-drawer").click();
   }
 
@@ -143,7 +144,7 @@ export function ShoppingCartContextProvider(props) {
   }
 
   useEffect(() => {
-    const executeAsync = async () => {};
+    const executeAsync = async () => { };
     executeAsync();
   }, []);
 
@@ -166,6 +167,8 @@ export function ShoppingCartContextProvider(props) {
         verifyCupom,
         createOrderFromSite,
         getClientByPhoneNumber,
+        setChange,
+        change
       }}
     >
       {props.children}

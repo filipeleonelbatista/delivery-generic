@@ -41,6 +41,7 @@ export default function Review({ handleBack, handleNext, activeStep, steps }) {
     isDelivery,
     cupom,
     createOrderFromSite,
+    change
   } = useShoppingCart();
 
   const { config } = useConfig();
@@ -120,6 +121,7 @@ export default function Review({ handleBack, handleNext, activeStep, steps }) {
       paymentMethod: selectedPaymentMethod,
       observation: formValues.observation,
       items: productsList,
+      change: change,
       createdAt: new Date(Date.now()).getTime(),
       createdBy: "Site",
       updatedAt: new Date(Date.now()).getTime(),
@@ -331,6 +333,14 @@ export default function Review({ handleBack, handleNext, activeStep, steps }) {
             {selectedPaymentMethod === "isMoney" && "Dinheiro"}
             {selectedPaymentMethod === "isPix" && "Pix"}
           </Typography>
+
+          {
+            selectedPaymentMethod === "isMoney" && (
+              <Typography gutterBottom>
+                Troco para R$ {change}
+              </Typography>
+            )
+          }
         </Grid>
       </Grid>
 

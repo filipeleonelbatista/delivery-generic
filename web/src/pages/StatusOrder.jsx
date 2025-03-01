@@ -222,11 +222,10 @@ export default function StatusOrder() {
                       )}
                       <ListItem sx={{ py: 1, px: 0 }}>
                         <ListItemText
-                          primary={`Cupom de desconto: ${
-                            order.cupomObject
-                              ? order.cupomObject.description
-                              : ""
-                          }`}
+                          primary={`Cupom de desconto: ${order.cupomObject
+                            ? order.cupomObject.description
+                            : ""
+                            }`}
                         />
                         <Typography
                           variant="subtitle1"
@@ -306,6 +305,13 @@ export default function StatusOrder() {
                       {order?.paymentMethod === "isMoney" && "Dinheiro"}
                       {order?.paymentMethod === "isPix" && "Pix"}
                     </Typography>
+                    {
+                      order?.paymentMethod === "isMoney" && order.change && (
+                        <Typography gutterBottom>
+                          Troco para R$ {order.change}
+                        </Typography>
+                      )
+                    }
                   </Grid>
                 </Grid>
 
@@ -343,9 +349,8 @@ export default function StatusOrder() {
                       href={`https://wa.me/+55${config.whatsapp.replace(
                         /\D/g,
                         ""
-                      )}?text=Preciso+de+ajuda+com+o+pedido+${
-                        queryString.parse(location.search).pedido
-                      }`}
+                      )}?text=Preciso+de+ajuda+com+o+pedido+${queryString.parse(location.search).pedido
+                        }`}
                     >
                       WhatsApp
                     </Button>
